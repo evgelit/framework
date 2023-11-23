@@ -1,0 +1,6 @@
+/venv/
+/attribute/__pycache__
+/base/__pycache__
+/base/validators/__pycache__
+/resource/__pycache__
+.gitignore
