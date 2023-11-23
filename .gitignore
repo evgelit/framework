@@ -4,3 +4,4 @@
 /base/validators/__pycache__
 /resource/__pycache__
 .gitignore
+.idea
