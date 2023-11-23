@@ -5,7 +5,7 @@ from attribute.attribute_collection import AttributeCollection
 
 class AttributeRepository:
 
-    def create(self, data: dict):
+    def create(self, data: dict) -> Attribute:
         return Attribute(data)
 
     def get(self, attribute_id: int) -> Attribute:
