@@ -1,21 +1,9 @@
-from attribute.attribute_repository import AttributeRepository
-from base.collection import Collection
+from attribute.attribute_set_collection import AttributeSetCollection
 
-repo = AttributeRepository()
-attr1 = repo.create(
-    {
-        "name": "first_name",
-        "attribute_type": "varchar"
-    }
-)
-attr2 = repo.create(
-    {
-        "name": "last_name",
-        "attribute_type": "varchar"
-    }
-)
+collection = AttributeSetCollection()
+collection.load_collection()
 
-collection = Collection(
-    [attr1, attr2]
-)
-
+for attribute_set in collection:
+    print(attribute_set.name)
+    for attribute in attribute_set.attribute_collection:
+        print("    ",attribute.name)
