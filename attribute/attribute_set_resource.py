@@ -75,7 +75,7 @@ class AttributeSetResource(Resource):
         self.resource_connection.query(query)
 
     '''
-    Add attribute to attribute set
+    Connect attribute with attribute set
     '''
     def link(self, attribute: Attribute, attribute_set: AttributeSet) -> None:
         self.unlink(attribute, attribute_set)
@@ -85,7 +85,7 @@ class AttributeSetResource(Resource):
         self.resource_connection.query(query)
 
     '''
-    Remove attribute from attribute set
+    Remove connection between attribute and attribute set
     '''
     def unlink(self, attribute, attribute_set) -> None:
         query = (f"DELETE FROM {self.ATTRIBUTE_RELATION_TABLE} "
