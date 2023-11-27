@@ -10,6 +10,9 @@ class AttributeSetResource(Resource):
     ATTRIBUTE_SET_TABLE = "attribute_set"
     ATTRIBUTE_RELATION_TABLE = "attribute_set_attribute_id"
 
+    '''
+    Load attribute set from database
+    '''
     def load(
             self,
             fields: list,
@@ -23,6 +26,9 @@ class AttributeSetResource(Resource):
             con=self.resource_connection.engine
         )
 
+    '''
+    Load attributes related to attribute set 
+    '''
     def load_relations(
             self,
             attribute_set_id: list
@@ -43,16 +49,23 @@ class AttributeSetResource(Resource):
             con=self.resource_connection.engine
         )
 
+    '''
+    Save attribute set to database
+    '''
     def save(
             self, attribute_set: AttributeSet
     ) -> None:
+        attribute_set_id = attribute_set.attribute_set_id if attribute_set.attribute_set_id is not None else "NULL"
         query = (f"INSERT INTO {self.ATTRIBUTE_SET_TABLE} VALUES "
-                 f"('{attribute_set.attribute_set_id}',"
+                 f"('{attribute_set_id}',"
                  f"'{attribute_set.name}')"
                  f" ON DUPLICATE KEY UPDATE"
                  f" name='{attribute_set.name}'")
         self.resource_connection.query(query)
 
+    '''
+    Remove attribute set from database
+    '''
     def delete(
             self,
             attribute_set_id: str

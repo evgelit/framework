@@ -5,10 +5,13 @@ from attribute.attribute_set_resource import AttributeSetResource
 
 
 class AttributeSetCollection(Collection):
-
     DTO: AttributeSet = AttributeSet
     resource: AttributeSetResource = AttributeSetResource()
     attribute_collections: dict = {}
+
+    '''
+    Create single attribute set entity and connect collection of related attributes
+    '''
 
     def __next__(self) -> AttributeSet:
         if self.iter <= self.iter_max:
@@ -25,6 +28,16 @@ class AttributeSetCollection(Collection):
             return result
         else:
             raise StopIteration
+
+    '''
+    Get first item from collection
+    '''
+    def get_first_item(self) -> AttributeSet:
+        return super().get_first_item()
+
+    '''
+    Load collection data from database 
+    '''
 
     def load_collection(self) -> None:
         data = self.resource.load(
@@ -43,6 +56,10 @@ class AttributeSetCollection(Collection):
             attr_collection.set_data(attributes)
             self.attribute_collections[att_set_id] = attr_collection
         self.set_data(data)
+
+    '''
+    Get current collection resource
+    '''
 
     def get_resource(self) -> AttributeSetResource:
         return self.resource

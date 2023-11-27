@@ -25,8 +25,9 @@ class AttributeResource(Resource):
     def save(
             self, attribute: Attribute
     ) -> None:
+        attribute_id = attribute.attribute_id if attribute.attribute_id is not None else "NULL"
         query = (f"INSERT INTO {self.ATTRIBUTE_TABLE} VALUES "
-                 f"('{attribute.attribute_id}',"
+                 f"({attribute_id},"
                  f"'{attribute.name}',"
                  f"'{attribute.attribute_type}',"
                  f"'{attribute.source_model}')"
