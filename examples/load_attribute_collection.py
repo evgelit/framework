@@ -31,13 +31,18 @@ for attribute in attribute_collection:
 
 print("#######")
 
-# Get only attributes with type numerical by repository
+# Get only attributes with type numerical and ID greater than 20 by repository
 search_criteria = SearchCriteria(
     [
         {
             'field': 'attribute_type',
             'value': 'numerical',
             'condition': 'eq'
+        },
+        {
+            'field': 'attribute_id',
+            'value': '20',
+            'condition': 'gt'
         }
     ]
 )
