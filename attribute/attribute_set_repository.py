@@ -6,7 +6,7 @@ from attribute.attribute_set_collection import AttributeSetCollection
 
 class AttributeSetRepository:
 
-    collection = AttributeSetCollection()
+    __collection = AttributeSetCollection()
 
     '''
     Create attribute set entity
@@ -19,62 +19,62 @@ class AttributeSetRepository:
     Raise error if ID not exists
     '''
     def get(self, attribute_set_id: str) -> AttributeSet:
-        self.collection.reset()
-        self.collection.add_field_to_filter(
+        self.__collection.reset()
+        self.__collection.add_field_to_filter(
             field='attribute_set_id',
             value=attribute_set_id,
             condition="eq"
         )
-        self.collection.load_collection()
-        if self.collection.count() < 1:
+        self.__collection.load_collection()
+        if self.__collection.count() < 1:
             raise ValueError(f"Attribute set with ID {attribute_set_id} not found.")
-        return self.collection.get_first_item()
+        return self.__collection.get_first_item()
 
     '''
     Load attribute set entity with attributes from database by name, 
     Raise error if name not exists
     '''
     def get_by_name(self, name: str) -> AttributeSet:
-        self.collection.reset()
-        self.collection.add_field_to_filter(
+        self.__collection.reset()
+        self.__collection.add_field_to_filter(
             field='name',
             value=name,
             condition="eq"
         )
-        self.collection.load_collection()
-        if self.collection.count() < 1:
+        self.__collection.load_collection()
+        if self.__collection.count() < 1:
             raise ValueError(f"Attribute with name {name} not found.")
-        return self.collection.get_first_item()
+        return self.__collection.get_first_item()
 
     '''
     Load attribute set collection with attributes from database by SearchCriteria
     '''
     def get_list(self, search_criteria: SearchCriteria) -> AttributeSetCollection:
-        self.collection.reset()
+        self.__collection.reset()
         for filter_ in search_criteria.filters:
-            self.collection.add_field_to_filter(
+            self.__collection.add_field_to_filter(
                 field=filter_['field'],
                 value=filter_['value'],
                 condition=filter_['condition'],
             )
-        self.collection.load_collection()
-        return self.collection
+        self.__collection.load_collection()
+        return self.__collection
 
     '''
     Save attribute set entity
     '''
     def save(self, attribute_set: AttributeSet, commit: bool = True) -> None:
-        self.collection.get_resource().save(attribute_set)
+        self.__collection.get_resource().save(attribute_set)
         if commit is True:
-            self.collection.get_resource().commit_transaction()
+            self.__collection.get_resource().commit_transaction()
 
     '''
     Delete attribute set entity
     '''
     def delete(self, attribute_set_id: str, commit: bool = True) -> None:
-        self.collection.get_resource().delete(attribute_set_id)
+        self.__collection.get_resource().delete(attribute_set_id)
         if commit is True:
-            self.collection.get_resource().commit_transaction()
+            self.__collection.get_resource().commit_transaction()
 
     '''
     Add attribute to attribute set
@@ -85,9 +85,9 @@ class AttributeSetRepository:
             attribute: Attribute,
             commit: bool = True
     ) -> None:
-        self.collection.get_resource().link(attribute, attribute_set)
+        self.__collection.get_resource().link(attribute, attribute_set)
         if commit is True:
-            self.collection.get_resource().commit_transaction()
+            self.__collection.get_resource().commit_transaction()
 
     '''
     Remove attribute from attribute set
@@ -98,6 +98,6 @@ class AttributeSetRepository:
             attribute: Attribute,
             commit: bool = True
     ) -> None:
-        self.collection.get_resource().unlink(attribute, attribute_set)
+        self.__collection.get_resource().unlink(attribute, attribute_set)
         if commit is True:
-            self.collection.get_resource().commit_transaction()
+            self.__collection.get_resource().commit_transaction()

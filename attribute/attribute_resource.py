@@ -22,6 +22,9 @@ class AttributeResource(Resource):
             con=self.resource_connection.engine
         )
 
+    '''
+    Save attribute data to database
+    '''
     def save(
             self, attribute: Attribute
     ) -> None:

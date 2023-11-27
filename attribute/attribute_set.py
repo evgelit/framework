@@ -20,6 +20,9 @@ class AttributeSet(DTO, DTOValidator):
     name: str
     attribute_collection: AttributeCollection = AttributeCollection()
 
+    '''
+    Set and validate data
+    '''
     def __init__(self, data: dict):
         super().__init__(data)
         super()._validate()

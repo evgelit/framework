@@ -12,7 +12,6 @@ class AttributeSetCollection(Collection):
     '''
     Create single attribute set entity and connect collection of related attributes
     '''
-
     def __next__(self) -> AttributeSet:
         if self.iter <= self.iter_max:
             attr_set_id = self.data.iloc[self.iter]['attribute_set_id']
@@ -38,7 +37,6 @@ class AttributeSetCollection(Collection):
     '''
     Load collection data from database 
     '''
-
     def load_collection(self) -> None:
         data = self.resource.load(
             self.fields,
@@ -60,6 +58,5 @@ class AttributeSetCollection(Collection):
     '''
     Get current collection resource
     '''
-
     def get_resource(self) -> AttributeSetResource:
         return self.resource
