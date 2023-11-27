@@ -2,7 +2,10 @@ from attribute.attribute_repository import AttributeRepository
 from attribute.attribute_collection import AttributeCollection
 from base.search_criteria import SearchCriteria
 
-# Get collection by repository
+'''
+ Example 1
+ Get collection by repository
+'''
 search_criteria = SearchCriteria([])
 attribute_repository = AttributeRepository()
 attribute_collection = attribute_repository.get_list(search_criteria)
@@ -12,7 +15,10 @@ for attribute in attribute_collection:
 
 print("#######")
 
-# Get collection directly
+'''
+ Example 2
+ Get collection directly
+'''
 attribute_collection = AttributeCollection()
 attribute_collection.load_collection()
 
@@ -21,7 +27,10 @@ for attribute in attribute_collection:
 
 print("#######")
 
-# Get only attributes with type varchar by collection
+'''
+ Example 3
+ Get only attributes with type varchar by collection
+'''
 attribute_collection = AttributeCollection()
 attribute_collection.add_field_to_filter('attribute_type', 'varchar')
 attribute_collection.load_collection()
@@ -31,7 +40,10 @@ for attribute in attribute_collection:
 
 print("#######")
 
-# Get only attributes with type numerical and ID greater than 20 by repository
+'''
+ Example 3
+ Get only attributes with type numerical and ID greater than 20 by repository
+'''
 search_criteria = SearchCriteria(
     [
         {
