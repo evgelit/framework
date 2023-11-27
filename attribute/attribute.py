@@ -22,6 +22,9 @@ class Attribute(DTO, DTOValidator):
     attribute_type: str
     source_model: str = None
 
+    '''
+    Set data and validate
+    '''
     def __init__(self, data: dict):
         super().__init__(data)
         super()._validate()

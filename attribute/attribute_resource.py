@@ -6,6 +6,9 @@ from base.resource import Resource
 class AttributeResource(Resource):
     ATTRIBUTE_TABLE = "attribute"
 
+    '''
+    Load attribute data from database
+    '''
     def load(
             self,
             fields: list,

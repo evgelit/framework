@@ -44,3 +44,5 @@ class AttributeSetCollection(Collection):
             self.attribute_collections[att_set_id] = attr_collection
         self.set_data(data)
 
+    def get_resource(self) -> AttributeSetResource:
+        return self.resource

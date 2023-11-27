@@ -1,5 +1,4 @@
-from resource.connection_factory import create as create_connection
-from resource.resource_connection import ResourceConnection
+from attribute.attribute import Attribute
 from attribute.attribute_set import AttributeSet
 from attribute.attribute_resource import AttributeResource
 from pandas import DataFrame, read_sql
@@ -49,7 +48,7 @@ class AttributeSetResource(Resource):
     ) -> None:
         query = (f"INSERT INTO {self.ATTRIBUTE_SET_TABLE} VALUES "
                  f"('{attribute_set.attribute_set_id}',"
-                 f"'{attribute_set.name}'"
+                 f"'{attribute_set.name}')"
                  f" ON DUPLICATE KEY UPDATE"
                  f" name='{attribute_set.name}'")
         self.resource_connection.query(query)
@@ -60,5 +59,24 @@ class AttributeSetResource(Resource):
     ) -> None:
         query = (f"DELETE FROM {self.ATTRIBUTE_SET_TABLE} "
                  f"WHERE attribute_set_id={attribute_set_id}")
+        self.resource_connection.query(query)
+
+    '''
+    Add attribute to attribute set
+    '''
+    def link(self, attribute: Attribute, attribute_set: AttributeSet) -> None:
+        self.unlink(attribute, attribute_set)
+        query = (f"INSERT INTO {self.ATTRIBUTE_RELATION_TABLE} VALUES "
+                 f"('{attribute_set.attribute_set_id}',"
+                 f"'{attribute.attribute_id}')")
+        self.resource_connection.query(query)
+
+    '''
+    Remove attribute from attribute set
+    '''
+    def unlink(self, attribute, attribute_set) -> None:
+        query = (f"DELETE FROM {self.ATTRIBUTE_RELATION_TABLE} "
+                 f"WHERE attribute_id={attribute.attribute_id} "
+                 f"AND attribute_set_id={attribute_set.attribute_set_id}")
         self.resource_connection.query(query)
 
