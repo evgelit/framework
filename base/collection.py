@@ -17,6 +17,9 @@ class Collection:
         self.iter = 0
         return self
 
+    '''
+    Creating DTO instance from loaded data
+    '''
     def __next__(self):
         if self.iter <= self.iter_max:
             result = self.DTO(
@@ -32,19 +35,28 @@ class Collection:
         else:
             raise StopIteration
 
+    '''
+    Set data to collection, updating iteration variables
+    '''
     def set_data(self, data: DataFrame) -> None:
         self.data = data
+        self.iter = 0
         self.iter_max = len(self.data.index) - 1
 
-    # conditions:
-    #    eq - equal
-    #    neq - not equal
-    #    gt - greater than
-    #    lt - lower than
-    #    gteq - greater than or equal
-    #    lteq - lower than or equal
-    #    in - in set
-    #    not in - not in set
+    '''
+    Applying filters to data on collection load, 
+    supported only when collection connected to database.
+    
+    Possible conditions:
+        eq - equal
+        neq - not equal
+        gt - greater than
+        lt - lower than
+        gteq - greater than or equal
+        lteq - lower than or equal
+        in - in set
+        not in - not in set
+    '''
     def add_field_to_filter(
         self,
         field: str,
@@ -59,14 +71,42 @@ class Collection:
             }
         )
 
+    '''
+    Get first entity of collection   
+    '''
+    def get_first_item(self):
+        return self.DTO(
+            dict(
+                zip(
+                    self.data.columns,
+                    self.data.iloc[self.iter].tolist()
+                )
+            )
+        )
+
+    '''
+    Changing set of values loaded to collection, 
+    supported only when collection connected to database  
+    '''
     def add_field_to_select(
         self,
         field: str or list
-    ):
+    ) -> None:
         if type(field) is list:
             self.fields = self.fields + field
         else:
             self.fields.append(field)
 
+    '''
+    Return number of collection's entities
+    '''
+    def count(self) -> int:
+        return len(self.data.index)
+
+    '''
+    Reset current fields, filters and iterator
+    '''
     def reset(self) -> None:
+        self.iter = 0
         self.filters = []
+        self.fields = []

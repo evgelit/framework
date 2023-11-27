@@ -11,9 +11,16 @@ class AttributeCollection(Collection):
     def __next__(self) -> Attribute:
         return super().__next__()
 
+    def get_first_item(self) -> Attribute:
+        return super().get_first_item()
+
     def load_collection(self) -> None:
         data = self.resource.load(
             self.fields,
             self.filters,
         )
         self.set_data(data)
+
+    def get_resource(self) -> AttributeResource:
+        return self.resource
+

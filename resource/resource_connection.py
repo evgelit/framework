@@ -22,5 +22,8 @@ class ResourceConnection:
             self.has_error = True
             self.error = str(e)
 
-    def query(self, query: str):
+    def query(self, query: str) -> None:
         self.connection.execute(text(query))
+
+    def commit(self) -> None:
+        self.connection.commit()

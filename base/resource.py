@@ -1,3 +1,7 @@
+from resource.connection_factory import create as create_connection
+from resource.resource_connection import ResourceConnection
+
+
 class Resource:
 
     OPERATORS = {
@@ -8,6 +12,11 @@ class Resource:
         "lt": "<",
         "lteq": "<=",
     }
+
+    resource_connection: ResourceConnection
+
+    def __init__(self):
+        self.resource_connection = create_connection()
 
     def prepare_fields(self, fields: list) -> str:
         if len(fields) == 0:
@@ -37,3 +46,6 @@ class Resource:
             )
             prepared_filters.append(prepared_filter)
         return "WHERE " + " AND ".join(prepared_filters)
+
+    def commit_transaction(self) -> None:
+        self.resource_connection.commit()

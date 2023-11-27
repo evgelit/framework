@@ -11,11 +11,6 @@ class AttributeSetResource(Resource):
     ATTRIBUTE_SET_TABLE = "attribute_set"
     ATTRIBUTE_RELATION_TABLE = "attribute_set_attribute_id"
 
-    resource_connection: ResourceConnection
-
-    def __init__(self):
-        self.resource_connection = create_connection()
-
     def load(
             self,
             fields: list,
@@ -33,7 +28,7 @@ class AttributeSetResource(Resource):
             self,
             attribute_set_id: list
     ) -> DataFrame:
-        filter = [
+        filter_ = [
             {
                 "field": "attribute_set_id",
                 "value": attribute_set_id,
@@ -43,14 +38,27 @@ class AttributeSetResource(Resource):
         query = (f"SELECT * "
                  f"FROM {self.ATTRIBUTE_RELATION_TABLE} as art"
                  f" LEFT JOIN {AttributeResource.ATTRIBUTE_TABLE} as a ON a.attribute_id = art.attribute_id"
-                 f" {self.prepare_filters(filter)}")
+                 f" {self.prepare_filters(filter_)}")
         return read_sql(
             query,
             con=self.resource_connection.engine
         )
 
     def save(
-            self, attribute: AttributeSet
+            self, attribute_set: AttributeSet
     ) -> None:
-        pass
+        query = (f"INSERT INTO {self.ATTRIBUTE_SET_TABLE} VALUES "
+                 f"('{attribute_set.attribute_set_id}',"
+                 f"'{attribute_set.name}'"
+                 f" ON DUPLICATE KEY UPDATE"
+                 f" name='{attribute_set.name}'")
+        self.resource_connection.query(query)
+
+    def delete(
+            self,
+            attribute_set_id: str
+    ) -> None:
+        query = (f"DELETE FROM {self.ATTRIBUTE_SET_TABLE} "
+                 f"WHERE attribute_set_id={attribute_set_id}")
+        self.resource_connection.query(query)
 

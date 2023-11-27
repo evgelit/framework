@@ -1,9 +1,5 @@
-from attribute.attribute_set_collection import AttributeSetCollection
+from attribute.attribute_repository import AttributeRepository
 
-collection = AttributeSetCollection()
-collection.load_collection()
-
-for attribute_set in collection:
-    print(attribute_set.name)
-    for attribute in attribute_set.attribute_collection:
-        print("    ",attribute.name)
+repo = AttributeRepository()
+attr = repo.get_by_name("first_name")
+print(attr.to_dict())

@@ -2,7 +2,7 @@ from base.collection import Collection
 from attribute.attribute_set import AttributeSet
 from attribute.attribute_collection import AttributeCollection
 from attribute.attribute_set_resource import AttributeSetResource
-from pandas import DataFrame
+
 
 class AttributeSetCollection(Collection):
 
