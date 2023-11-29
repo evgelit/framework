@@ -4,7 +4,7 @@ class DTOValidator:
     DATA_MAP = {}
 
     '''
-        Validating custom DTO by data types and required fields
+    Validating custom DTO by data types and required fields
     '''
     def _validate(self):
         miss_attr = self.REQUIRED - self.__dict__.keys()

@@ -13,7 +13,9 @@ class AttributeSetCollection(Collection):
     Create single attribute set entity and connect collection of related attributes
     '''
     def __next__(self) -> AttributeSet:
-        if self.iter <= self.iter_max:
+        if len(self.data.index) == 0:
+            raise StopIteration
+        if self.iter < len(self.data.index):
             attr_set_id = self.data.iloc[self.iter]['attribute_set_id']
             result = self.DTO(
                 dict(

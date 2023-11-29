@@ -3,15 +3,15 @@ class DTO:
     DATA_MAP = {}
 
     """
-        Setting to DTO attributes and values
-        Input example: data = {"code": "value"} 
+    Setting to DTO attributes and values
+    Input example: data = {"code": "value"} 
     """
     def __init__(self, data: dict):
         for key, value in data.items():
             setattr(self, key, value)
 
     """
-        Return DTO attributes as list
+    Return DTO attributes as list
     """
     def to_list(self) -> list:
         values = []
@@ -23,7 +23,7 @@ class DTO:
         return values
 
     """
-       Return DTO attributes as dictionary
+    Return DTO attributes as dictionary
     """
     def to_dict(self) -> list:
         values = {}

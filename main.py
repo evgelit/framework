@@ -1,10 +1,14 @@
-from attribute.attribute_repository import AttributeRepository
-from attribute.attribute_set_repository import AttributeSetRepository
+from entity.entity_repository import EntityRepository
+from base.search_criteria import SearchCriteria
+from pprint import pprint
 
-attr_repo = AttributeRepository()
-attr = attr_repo.get("24")
+entity_repository = EntityRepository()
 
-attr_set_repo = AttributeSetRepository()
-attr_set = attr_set_repo.get("2")
+search_criteria = SearchCriteria([
+    {"field": "last_name", "value": "Doe", "condition": "eq"},
+])
 
-attr_set_repo.remove_from_set(attr_set,attr)
+collection = entity_repository.get_list(search_criteria)
+
+for entity in collection:
+    pprint(entity.to_dict())

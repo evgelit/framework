@@ -21,7 +21,9 @@ class Collection:
     Creating DTO instance from loaded data
     '''
     def __next__(self):
-        if self.iter <= self.iter_max:
+        if len(self.data.index) == 0:
+            raise StopIteration
+        if self.iter < len(self.data.index):
             result = self.DTO(
                 dict(
                     zip(
@@ -79,7 +81,7 @@ class Collection:
             dict(
                 zip(
                     self.data.columns,
-                    self.data.iloc[self.iter].tolist()
+                    self.data.iloc[0].tolist()
                 )
             )
         )
