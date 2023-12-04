@@ -1,7 +1,7 @@
 /venv/
-/attribute/__pycache__
-/base/__pycache__
-/base/validators/__pycache__
-/resource/__pycache__
+/core/attribute/__pycache__
+/core/base/__pycache__
+/core/base/validators/__pycache__
+/core/resource/__pycache__
 .gitignore
 .idea

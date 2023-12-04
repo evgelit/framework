@@ -1,4 +1,4 @@
-from attribute.attribute_repository import AttributeRepository
+from core.attribute.attribute_repository import AttributeRepository
 
 attribute_repository = AttributeRepository()
 

@@ -1,6 +1,6 @@
-from attribute.attribute_repository import AttributeRepository
-from attribute.attribute_collection import AttributeCollection
-from base.search_criteria import SearchCriteria
+from core.attribute.attribute_repository import AttributeRepository
+from core.attribute.attribute_collection import AttributeCollection
+from core.base.search_criteria import SearchCriteria
 
 '''
  Example 1

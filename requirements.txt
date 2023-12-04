@@ -2,3 +2,5 @@ python-dotenv==1.0.0
 SQLAlchemy==2.0.21
 pandas~=2.0.3
 numpy~=1.24.4
+fastapi~=0.104.1
+pydantic~=2.5.1
